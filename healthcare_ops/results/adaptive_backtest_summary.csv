@@ -1,0 +1,15 @@
+strategy,period,weighted_service_level,unmet_patients,unmet_emergency_patients,data_type
+forecast_plus_safety_margin,normal,0.598721793278108,9032.0,38.0,synthetic
+forecast_with_weekly_retraining,normal,0.6175507782013572,8514.0,140.0,synthetic
+forecast_without_retraining,normal,0.617875221513671,8500.0,161.0,synthetic
+naive_last_week,normal,0.5717074928562198,9451.0,75.0,synthetic
+oracle,normal,0.6330821755018449,8311.0,1.0,synthetic
+proportional_split,normal,0.554595069840993,8308.0,1641.0,synthetic
+static_28day_average,normal,0.5797973989007185,9381.0,60.0,synthetic
+forecast_plus_safety_margin,outbreak,0.43711923559719285,6073.0,582.0,synthetic
+forecast_with_weekly_retraining,outbreak,0.4341452189917672,6080.0,598.0,synthetic
+forecast_without_retraining,outbreak,0.43079585281325855,6073.0,740.0,synthetic
+naive_last_week,outbreak,0.41650824872757014,6100.0,779.0,synthetic
+oracle,outbreak,0.444160349063872,6168.0,24.0,synthetic
+proportional_split,outbreak,0.3567600362892434,6073.0,1613.0,synthetic
+static_28day_average,outbreak,0.41623785018246373,6073.0,958.0,synthetic

@@ -190,6 +190,7 @@ def _supervised_frame_from_history(
 def fit_forecasters(
     data: pd.DataFrame,
     train_until: str | pd.Timestamp | None = None,
+    horizons: tuple[int, ...] = FORECAST_HORIZONS_DAYS,
 ) -> ForecastBundle:
     """Fit one GradientBoostingRegressor per available department and horizon.
 
@@ -211,7 +212,7 @@ def fit_forecasters(
         if department not in available_departments:
             continue
         history = _department_data(validated, department)
-        for horizon in FORECAST_HORIZONS_DAYS:
+        for horizon in horizons:
             examples = _supervised_frame_from_history(history, horizon)
             train = examples.loc[examples["target_date"] <= cutoff]
             if len(train) < FORECAST_MIN_TRAINING_ROWS:
@@ -238,6 +239,44 @@ def fit_forecasters(
     if not models:
         raise ValueError("No department models could be fitted.")
     return ForecastBundle(models, cutoff, target_max, row_counts)
+
+
+def forecast_next_day(
+    data: pd.DataFrame,
+    as_of: str | pd.Timestamp,
+    bundle: ForecastBundle,
+) -> pd.DataFrame:
+    """Forecast horizon-1 census only for the rolling backtest."""
+    validated = _validated_data(data)
+    origin = pd.Timestamp(as_of).normalize()
+    output: list[dict[str, object]] = []
+    target = origin + pd.Timedelta(days=1)
+    for department in DEPARTMENTS:
+        history = _department_data(validated, department)
+        known = history.loc[history["date"] <= origin].reset_index(drop=True)
+        matching = known.index[known["date"] == origin]
+        if len(matching) != 1:
+            raise ValueError(
+                f"Forecast origin {origin.date()} is not present for {department}."
+            )
+        origin_index = int(matching[0])
+        features = _feature_values(known, origin_index, target)
+        key = (department, 1)
+        if key not in bundle.models:
+            raise ValueError(f"No horizon-1 model for {department}.")
+        predicted = float(
+            bundle.models[key].predict(
+                pd.DataFrame([features], columns=FEATURE_COLUMNS)
+            )[0]
+        )
+        output.append({
+            "date": target,
+            "department": department,
+            "horizon": 1,
+            "forecast_census": max(0.0, predicted),
+            "data_type": "synthetic",
+        })
+    return pd.DataFrame(output)
 
 
 def forecast_next_7_days(

@@ -1,0 +1,7 @@
+solver,energy,runtime_seconds,optimum_probability,data_type,feasible_shot_rate,approximation_ratio
+Brute force,0.0,0.0,1.0,synthetic,,
+Simulated annealing,0.0,2.107910600010655,0.0,synthetic,,
+Random sampling,0.0,0.3231406999984756,0.0,synthetic,,
+QAOA p=1,0.0,0.5438763999991352,0.0115,synthetic,0.94,1.0
+QAOA p=2,0.0,1.1860063999920385,0.00225,synthetic,0.6925,1.0
+QAOA p=3,0.0,1.758912399993278,0.0015,synthetic,0.6585,1.0

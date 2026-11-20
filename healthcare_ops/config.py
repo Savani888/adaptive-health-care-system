@@ -83,3 +83,39 @@ FORECAST_MIN_SAMPLES_LEAF = 5
 FORECAST_LEARNING_RATE = 0.05
 FORECAST_LOSS = "huber"
 FORECAST_TEST_DAYS = 56
+
+# Allocation assumptions (all are synthetic planning parameters).
+# A nurse ratio is the number of patients that one nurse may serve in a department.
+NURSE_PATIENT_RATIOS = {
+    "Emergency": 4,
+    "Cardiology": 5,
+    "General Medicine": 6,
+    "Orthopaedics": 5,
+}
+
+# Higher weights express greater urgency. Emergency is highest by construction.
+URGENCY_WEIGHTS = {
+    "Emergency": 5,
+    "Cardiology": 4,
+    "General Medicine": 3,
+    "Orthopaedics": 3,
+}
+
+# Default one-day planning capacities. Also used by the Streamlit allocation tab.
+DEFAULT_TOTAL_BEDS = 240
+DEFAULT_TOTAL_NURSES = 55
+
+# Block size used later for the quantum QUBO approximation.
+QUBO_BED_BLOCK_SIZE = 10
+
+# Quantum-simulator limits. These keep the exact state vector at 18 qubits
+# or fewer and are intentionally small demonstration instances.
+QUANTUM_MAX_QUBITS = 18
+QUANTUM_QAOA_SHOTS = 4_000
+QUANTUM_RANDOM_SHOTS = 4_000
+QUANTUM_ANNEALING_STEPS = 20_000
+
+# Rolling adaptive-backtest assumptions.
+ADAPTIVE_BACKTEST_DAYS = 56
+FORECAST_SAFETY_MARGIN = 0.10
+ADAPTIVE_RETRAIN_INTERVAL_DAYS = 7

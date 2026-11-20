@@ -1,0 +1,10 @@
+pandas
+numpy
+scipy
+scikit-learn
+pulp==2.9.0
+qiskit
+qiskit-aer
+plotly
+streamlit
+pytest
