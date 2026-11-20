@@ -119,3 +119,24 @@ QUANTUM_ANNEALING_STEPS = 20_000
 ADAPTIVE_BACKTEST_DAYS = 56
 FORECAST_SAFETY_MARGIN = 0.10
 ADAPTIVE_RETRAIN_INTERVAL_DAYS = 7
+
+# Synthetic real-time game simulation assumptions.
+SIMULATION_SEED = 2026
+SIMULATION_INITIAL_OCCUPANCY = {
+    "Emergency": 55,
+    "Cardiology": 42,
+    "General Medicine": 68,
+    "Orthopaedics": 38,
+}
+SIMULATION_ARRIVAL_PER_TICK = {
+    "Emergency": 7,
+    "Cardiology": 4,
+    "General Medicine": 6,
+    "Orthopaedics": 3,
+}
+SIMULATION_DISCHARGE_PROBABILITY = {
+    "Emergency": 0.18,
+    "Cardiology": 0.12,
+    "General Medicine": 0.14,
+    "Orthopaedics": 0.16,
+}
